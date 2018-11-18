@@ -1,12 +1,19 @@
 # Camera recognition method for handwritten fonts
+
+实现步骤：
+
 1.正确配置android stdio工程，移植tensorflow和opencv
+
 2. D:\文档\摄像头识别手写字体  目录下已经准备好opencv调用摄像头文件的源码和布局文件，替换工程中的Main文件和xml文件
+
 3.在androidManifest.xml文件中加入摄像头权限
+
 <uses-permission android:name="android.permission.CAMERA" />
 <uses-feature android:name="android.hardware.camera" android:required="false"/>
 <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
 <uses-feature android:name="android.hardware.camera.front" android:required="false"/>
 <uses-feature android:name="android.hardware.camera.front.autofocus" android:required="false"/>
+
 
 4.摄像头权限动态申请
 
@@ -15,12 +22,16 @@ if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION
     requestPermissions(new String[]{Manifest.permission.CAMERA}, 100);
 }
 
+
 5.如遇手机显示问题以及黑屏闪退问题，需要手动调整分辨率
+
 mOpenCvCameraView.setMaxFrameSize(640, 640);
 
 
 
 把上一步的手写字体代码识别复制过来
+
+
 private TensorFlowInferenceInterface tensorFlowInferenceInterface = null;
 private static final String mode_file = "file:///android_asset/MnistTF_model.pb";
 private static final String INPUT_NODE = "conv2d_1_input_2:0";
@@ -34,6 +45,7 @@ tensorFlowInferenceInterface = new TensorFlowInferenceInterface(getAssets(), mod
 
 
 写一个函数用来识别手写字体
+
 int width = bitmap_roi.getWidth();
 int height = bitmap_roi.getHeight();
 int[] pixels = new int[width * height];
